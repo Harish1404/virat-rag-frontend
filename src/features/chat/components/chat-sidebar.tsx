@@ -4,6 +4,7 @@ import { MessageSquare, Plus, Trash2 } from "lucide-react";
 import { BrandMark } from "@/components/shared/brand-mark";
 import { EmptyState } from "@/components/shared/empty-state";
 import { Button } from "@/components/ui/button";
+import { UserMenu } from "@/features/auth/components/user-menu";
 import { cn } from "@/lib/utils";
 import { useConversations } from "../hooks/conversations-context";
 import { ThemeToggle } from "./theme-toggle";
@@ -92,8 +93,10 @@ export function ChatSidebar({ onNavigate }: ChatSidebarProps) {
         )}
       </nav>
 
-      <div className="flex items-center justify-between border-t border-sidebar-border px-3 py-3">
-        <span className="text-xs text-muted-foreground">Theme</span>
+      <div className="flex items-center gap-2 border-t border-sidebar-border px-3 py-3">
+        <div className="min-w-0 flex-1">
+          <UserMenu />
+        </div>
         <ThemeToggle />
       </div>
     </div>

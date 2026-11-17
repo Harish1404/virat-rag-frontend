@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata, Viewport } from "next";
 import { Figtree, Geist_Mono, Roboto_Slab } from "next/font/google";
 import "./globals.css";
@@ -27,6 +28,27 @@ export const viewport: Viewport = {
   ],
 };
 
+// Clerk's sign-in, sign-up and account screens reuse our theme tokens, so they
+// follow light/dark mode automatically. No colours are hardcoded here.
+const clerkAppearance = {
+  variables: {
+    colorPrimary: "var(--primary)",
+    colorPrimaryForeground: "var(--primary-foreground)",
+    colorBackground: "var(--card)",
+    colorForeground: "var(--card-foreground)",
+    colorMuted: "var(--muted)",
+    colorMutedForeground: "var(--muted-foreground)",
+    colorInput: "var(--background)",
+    colorInputForeground: "var(--foreground)",
+    colorBorder: "var(--border)",
+    colorRing: "var(--ring)",
+    colorDanger: "var(--destructive)",
+    colorNeutral: "var(--foreground)",
+    borderRadius: "var(--radius)",
+    fontFamily: "var(--font-sans)",
+  },
+};
+
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     // next-themes changes the class on <html> before React loads, so React
@@ -42,7 +64,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       )}
     >
       <body className="h-full">
-        <Providers>{children}</Providers>
+        {/* ClerkProvider manages the sign-in session (Clerk keeps its own secure cookies). */}
+        <ClerkProvider appearance={clerkAppearance} afterSignOutUrl="/sign-in">
+          <Providers>{children}</Providers>
+        </ClerkProvider>
       </body>
     </html>
   );

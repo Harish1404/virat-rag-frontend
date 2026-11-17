@@ -1,6 +1,18 @@
+import { getAuthToken, handleUnauthorized } from "@/lib/auth-token";
 import { API_BASE_URL } from "@/lib/constants";
 import { ApiError } from "@/lib/errors";
 import { logger } from "@/lib/logger";
+
+// Adds "Authorization: Bearer <token>" when the user is signed in.
+// Without a token the request still goes out, and the backend answers 401.
+async function withAuthHeader(options?: RequestInit): Promise<RequestInit> {
+  const token = await getAuthToken();
+  if (!token) return options ?? {};
+
+  const headers = new Headers(options?.headers);
+  headers.set("Authorization", `Bearer ${token}`);
+  return { ...options, headers };
+}
 
 // FastAPI sends errors as { "detail": "..." }. This reads that message safely.
 function readErrorDetail(body: unknown): string | null {
@@ -23,7 +35,7 @@ async function sendRequest(path: string, options?: RequestInit): Promise<Respons
 
   // 1. Network failure (server down, no internet)
   try {
-    response = await fetch(url, options);
+    response = await fetch(url, await withAuthHeader(options));
   } catch (error) {
     // An abort is the user pressing "Stop", not a network problem.
     if (error instanceof DOMException && error.name === "AbortError") throw error;
@@ -36,6 +48,11 @@ async function sendRequest(path: string, options?: RequestInit): Promise<Respons
     const body: unknown = await response.json().catch(() => null);
     const message = readErrorDetail(body) ?? `Request failed with status ${response.status}`;
     logger.error("api", `${method} ${path} failed (${response.status})`, body);
+
+    // 401 = the session is missing or expired. Let the auth bridge decide whether
+    // to send the user back to the sign-in page.
+    if (response.status === 401) await handleUnauthorized();
+
     throw new ApiError(message, response.status, body);
   }
 

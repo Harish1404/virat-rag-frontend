@@ -16,6 +16,8 @@ export class ApiError extends Error {
 export function getErrorMessage(error: unknown): string {
   if (error instanceof ApiError) {
     if (error.status === 0) return "Cannot reach the server. Check that the backend is running.";
+    if (error.status === 401) return "Your session has expired. Please sign in again.";
+    if (error.status === 403) return "You don't have permission to do this.";
     if (error.status === 404) return "We could not find what you asked for.";
     if (error.status >= 500) return "The server had a problem. Please try again.";
     return error.message;
