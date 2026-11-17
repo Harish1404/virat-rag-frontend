@@ -54,7 +54,7 @@ export function ChatInput({
 
   return (
     <form onSubmit={handleSubmit} className={cn("w-full", className)}>
-      <div className="rounded-3xl border bg-card p-3 shadow-sm transition-shadow focus-within:shadow-md focus-within:ring-1 focus-within:ring-ring/40">
+      <div className="rounded-composer border border-composer-border bg-composer p-2 shadow-soft transition-shadow focus-within:shadow-raised focus-within:ring-1 focus-within:ring-ring sm:p-3">
         <Textarea
           value={question}
           onChange={(event) => {
@@ -65,20 +65,35 @@ export function ChatInput({
           placeholder={placeholder}
           autoFocus={autoFocus}
           rows={1}
+          enterKeyHint="send"
           aria-label="Your question"
           aria-invalid={validationError !== null}
-          className="max-h-60 min-h-12 resize-none border-0 bg-transparent px-2 py-1.5 text-[15px] shadow-none focus-visible:ring-0 aria-invalid:ring-0 dark:bg-transparent"
+          // text-base (16px) on phones stops iOS Safari from zooming in when the box is focused.
+          // max-h uses dvh so a long question never hides the whole screen behind the keyboard.
+          className="max-h-[40dvh] min-h-12 resize-none border-0 bg-transparent px-2 py-1.5 text-base shadow-none focus-visible:ring-0 aria-invalid:ring-0 md:text-message dark:bg-transparent"
         />
         <div className="flex items-center justify-between gap-2 pt-1">
           <p className="px-2 text-xs text-destructive" aria-live="polite">
             {validationError}
           </p>
           {isStreaming ? (
-            <Button type="button" size="icon" onClick={onStop} aria-label="Stop answering" className="rounded-xl">
+            <Button
+              type="button"
+              size="icon"
+              onClick={onStop}
+              aria-label="Stop answering"
+              className="rounded-xl touch:size-touch"
+            >
               <Square className="fill-current" />
             </Button>
           ) : (
-            <Button type="submit" size="icon" disabled={isEmpty} aria-label="Send question" className="rounded-xl">
+            <Button
+              type="submit"
+              size="icon"
+              disabled={isEmpty}
+              aria-label="Send question"
+              className="rounded-xl touch:size-touch"
+            >
               <ArrowUp />
             </Button>
           )}

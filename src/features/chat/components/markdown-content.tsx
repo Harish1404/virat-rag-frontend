@@ -1,6 +1,11 @@
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+// Shared look for every code block (Markdown answers and tool input/output).
+// The [&_code] part resets the inline-code style for <code> inside the block.
+export const codeBlockClass =
+  "overflow-x-auto rounded-xl border bg-code p-3 font-mono text-xs leading-6 sm:text-sm [&_code]:bg-transparent [&_code]:p-0";
+
 // Tailwind classes for each Markdown element, so answers look tidy
 // without a separate stylesheet. remark-gfm adds tables, task lists and strikethrough.
 const markdownComponents: Components = {
@@ -17,7 +22,7 @@ const markdownComponents: Components = {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="text-primary underline underline-offset-4 hover:opacity-80"
+      className="text-brand underline underline-offset-4 hover:opacity-80"
     >
       {children}
     </a>
@@ -30,27 +35,23 @@ const markdownComponents: Components = {
   hr: () => <hr className="my-6 border-border" />,
   // Inline code. Code inside a <pre> block gets its look reset by the pre styles below.
   code: ({ children }) => (
-    <code className="rounded-md bg-muted px-1.5 py-0.5 font-mono text-[0.875em]">{children}</code>
+    <code className="rounded-md bg-code px-1.5 py-0.5 font-mono text-[0.875em]">{children}</code>
   ),
-  pre: ({ children }) => (
-    <pre className="my-3 overflow-x-auto rounded-xl border bg-muted/60 p-4 text-sm leading-6 [&_code]:bg-transparent [&_code]:p-0">
-      {children}
-    </pre>
-  ),
+  pre: ({ children }) => <pre className={`my-3 ${codeBlockClass}`}>{children}</pre>,
   table: ({ children }) => (
     <div className="my-3 overflow-x-auto rounded-xl border">
       <table className="w-full border-collapse text-sm">{children}</table>
     </div>
   ),
   th: ({ children }) => (
-    <th className="border-b bg-muted/60 px-3 py-2 text-left font-semibold">{children}</th>
+    <th className="border-b bg-code px-3 py-2 text-left font-semibold">{children}</th>
   ),
   td: ({ children }) => <td className="border-b px-3 py-2 align-top">{children}</td>,
 };
 
 export function MarkdownContent({ content }: { content: string }) {
   return (
-    <div className="text-[15px] break-words">
+    <div className="text-message break-words">
       <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
         {content}
       </ReactMarkdown>

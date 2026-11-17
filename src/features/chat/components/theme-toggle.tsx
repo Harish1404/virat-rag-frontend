@@ -18,7 +18,7 @@ export function ThemeToggle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon-sm" aria-label="Change theme">
+        <Button variant="ghost" size="icon-sm" aria-label="Change theme" className="touch:size-touch">
           {/* Both icons are rendered; CSS shows the right one, so the server
               and browser render the same HTML (no hydration mismatch). */}
           <Sun className="dark:hidden" />

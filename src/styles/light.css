@@ -1,0 +1,94 @@
+/*
+ * LIGHT THEME + COLOUR PALETTE
+ *
+ * 1. Palette: every raw colour value lives here, once.
+ * 2. Semantic tokens: what each colour is FOR (background, primary, border…).
+ *    Components never use palette colours directly; they use semantic tokens.
+ *
+ * dark.css only re-points the semantic tokens at darker palette colours.
+ */
+
+:root {
+  /* ---------- 1. Palette (Claude-style warm neutrals + terracotta) ---------- */
+
+  /* Warm creams, lightest to darkest */
+  --palette-white: oklch(1 0 0);
+  --palette-cream-100: oklch(0.982 0.005 95);  /* #FAF9F5 */
+  --palette-cream-200: oklch(0.965 0.007 95);  /* #F5F4EE */
+  --palette-cream-300: oklch(0.95 0.008 92);
+  --palette-cream-400: oklch(0.94 0.011 92);   /* #F0EEE6 */
+  --palette-cream-500: oklch(0.928 0.01 92);
+  --palette-cream-600: oklch(0.905 0.01 92);   /* #E3E0D6 */
+
+  /* Charcoals, lightest to darkest */
+  --palette-charcoal-500: oklch(0.345 0.004 90);
+  --palette-charcoal-600: oklch(0.33 0.003 100);
+  --palette-charcoal-700: oklch(0.31 0.003 107);  /* #30302E */
+  --palette-charcoal-800: oklch(0.268 0.003 107); /* #262624 */
+  --palette-charcoal-900: oklch(0.224 0.002 67);  /* #1F1E1D */
+  --palette-charcoal-950: oklch(0.205 0.003 90);  /* #141413 */
+
+  /* Text greys */
+  --palette-ink: oklch(0.205 0.004 100);       /* #1F1E1D */
+  --palette-paper: oklch(0.96 0.006 95);       /* #F5F4EF */
+  --palette-stone: oklch(0.55 0.008 100);      /* #73726C */
+  --palette-sand: oklch(0.72 0.01 85);         /* #A6A39B */
+
+  /* Brand */
+  --palette-terracotta-500: oklch(0.617 0.138 39); /* #C96442 */
+  --palette-terracotta-400: oklch(0.676 0.132 39); /* #D97757 */
+  --palette-terracotta-300: oklch(0.7 0.09 42);
+
+  /* Status */
+  --palette-red-500: oklch(0.577 0.245 27.325);
+  --palette-red-400: oklch(0.704 0.191 22.216);
+  --palette-green-500: oklch(0.6 0.13 150);
+  --palette-green-400: oklch(0.72 0.14 150);
+  --palette-amber-500: oklch(0.72 0.15 75);
+  --palette-amber-400: oklch(0.8 0.14 80);
+
+  /* ---------- 2. Semantic tokens (light) ---------- */
+
+  /* Tells the browser to draw native scrollbars and form controls in light colours */
+  color-scheme: light;
+
+  --background: var(--palette-cream-100);
+  --foreground: var(--palette-ink);
+
+  --card: var(--palette-white);
+  --card-foreground: var(--palette-ink);
+  --popover: var(--palette-white);
+  --popover-foreground: var(--palette-ink);
+
+  --primary: var(--palette-terracotta-500);
+  --primary-foreground: var(--palette-white);
+  --secondary: var(--palette-cream-400);
+  --secondary-foreground: var(--palette-ink);
+
+  --muted: var(--palette-cream-300);
+  --muted-foreground: var(--palette-stone);
+  --accent: var(--palette-cream-500);
+  --accent-foreground: var(--palette-ink);
+
+  --destructive: var(--palette-red-500);
+  --success: var(--palette-green-500);
+  --warning: var(--palette-amber-500);
+
+  --border: var(--palette-cream-600);
+  --input: var(--palette-cream-600);
+  --ring: var(--palette-terracotta-300);
+
+  --sidebar: var(--palette-cream-200);
+  --sidebar-foreground: var(--palette-ink);
+  --sidebar-primary: var(--palette-terracotta-500);
+  --sidebar-primary-foreground: var(--palette-white);
+  --sidebar-accent: var(--palette-cream-500);
+  --sidebar-accent-foreground: var(--palette-ink);
+  --sidebar-border: var(--palette-cream-600);
+  --sidebar-ring: var(--palette-terracotta-300);
+
+  /* Shape and depth */
+  --radius: 0.6rem;
+  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.04), 0 2px 8px oklch(0 0 0 / 0.04);
+  --shadow-raised: 0 2px 4px oklch(0 0 0 / 0.05), 0 8px 24px oklch(0 0 0 / 0.07);
+}

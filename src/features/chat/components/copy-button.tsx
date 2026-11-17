@@ -28,7 +28,7 @@ export function CopyButton({ text }: { text: string }) {
       size="icon-sm"
       onClick={handleCopy}
       aria-label={isCopied ? "Copied" : "Copy answer"}
-      className="text-muted-foreground"
+      className="text-muted-foreground touch:size-touch"
     >
       {isCopied ? <Check /> : <Copy />}
     </Button>

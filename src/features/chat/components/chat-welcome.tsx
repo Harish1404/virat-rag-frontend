@@ -1,4 +1,8 @@
-import { Asterisk, CloudSun, IndianRupee, Trophy, type LucideIcon } from "lucide-react";
+"use client";
+
+import { CloudSun, IndianRupee, Trophy, type LucideIcon } from "lucide-react";
+import { BrandMark } from "@/components/shared/brand-mark";
+import { useHasHover } from "../hooks/use-has-hover";
 import { ChatInput } from "./chat-input";
 
 type Suggestion = { icon: LucideIcon; label: string; question: string };
@@ -18,11 +22,17 @@ type ChatWelcomeProps = {
 
 // The start screen of a new chat: a greeting, a centred message box and example questions.
 export function ChatWelcome({ onSend, onStop, isStreaming }: ChatWelcomeProps) {
+  // Only focus the box automatically on mouse devices; on phones and TVs
+  // focusing it would pop up the on-screen keyboard straight away.
+  const hasHover = useHasHover();
+
   return (
-    <div className="flex flex-1 flex-col items-center justify-center overflow-y-auto px-4 pb-[12vh]">
-      <div className="flex w-full max-w-2xl flex-col items-center gap-8">
-        <h1 className="flex items-center gap-3 text-center font-heading text-3xl text-foreground sm:text-4xl">
-          <Asterisk className="size-9 shrink-0 text-primary" strokeWidth={2.5} />
+    // overflow-y-auto + my-auto on the inner block: centred when there is room,
+    // scrollable from the top when there isn't (short landscape phones, open keyboard).
+    <div className="flex flex-1 flex-col overflow-y-auto px-4 py-6">
+      <div className="mx-auto my-auto flex w-full max-w-chat flex-col items-center gap-6 sm:gap-8">
+        <h1 className="flex items-center gap-2 text-center font-heading text-2xl text-foreground sm:gap-3 sm:text-3xl lg:text-4xl">
+          <BrandMark className="size-7 sm:size-9" />
           How can I help you today?
         </h1>
 
@@ -31,7 +41,7 @@ export function ChatWelcome({ onSend, onStop, isStreaming }: ChatWelcomeProps) {
           onStop={onStop}
           isStreaming={isStreaming}
           placeholder="Ask about Virat Kohli, the weather, or anything else…"
-          autoFocus
+          autoFocus={hasHover}
         />
 
         <div className="flex flex-wrap justify-center gap-2">
@@ -41,7 +51,7 @@ export function ChatWelcome({ onSend, onStop, isStreaming }: ChatWelcomeProps) {
               type="button"
               onClick={() => onSend(suggestion.question)}
               disabled={isStreaming}
-              className="flex items-center gap-2 rounded-xl border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
+              className="flex min-h-9 items-center gap-2 rounded-xl border bg-card px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50 touch:min-h-touch"
             >
               <suggestion.icon className="size-4" />
               {suggestion.label}

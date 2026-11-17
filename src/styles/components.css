@@ -1,0 +1,54 @@
+/*
+ * COMPONENT TOKENS
+ *
+ * Chat-specific tokens. Each one points at a semantic token from light.css /
+ * dark.css, so it follows the theme automatically. To restyle one part of the
+ * chat (for example only the user bubble), change it here and nothing else moves.
+ *
+ * globals.css exposes these to Tailwind, e.g. --chat-bubble-user -> bg-bubble-user.
+ */
+
+:root {
+  /* ---------- Colours ---------- */
+  --chat-bubble-user: var(--secondary);
+  --chat-bubble-user-foreground: var(--secondary-foreground);
+  --chat-composer: var(--card);
+  --chat-composer-border: var(--border);
+  --chat-disclosure: var(--card);
+  --chat-code-bg: var(--muted);
+  --chat-brand: var(--primary);
+  --chat-brand-soft: oklch(from var(--primary) l c h / 12%);
+  --chat-focus-ring: var(--ring);
+
+  /* ---------- Sizes (rem, so they grow with the TV text scaling below) ---------- */
+  --chat-max-width: 48rem;        /* readable line length for the conversation */
+  --sidebar-width: 16rem;
+  --drawer-width: 18rem;          /* the sidebar when it slides in on small screens */
+  --bubble-max-width: 85%;
+  --composer-radius: 1.5rem;
+  --message-text: 0.9375rem;      /* 15px at the default root size */
+  --touch-target: 2.75rem;        /* 44px: the minimum comfortable tap size */
+}
+
+/* ---------- Component rules ---------- */
+
+/* Hide the default triangle of <details>; the Disclosure component draws its own chevron.
+   Safari needs the -webkit- selector, other browsers use list-style. */
+.chat-disclosure > summary {
+  list-style: none;
+}
+.chat-disclosure > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* ---------- Android TV and other large no-hover screens ---------- */
+
+/* TVs are viewed from across a room and have no mouse (hover: none).
+   Raising the root font size scales every rem-based size and text at once.
+   (The app shell also adds "overscan" padding with the tv: variant, because
+   some TVs crop the outer edges of the picture.) */
+@media (hover: none) and (min-width: 1280px) {
+  html {
+    font-size: 150%;
+  }
+}

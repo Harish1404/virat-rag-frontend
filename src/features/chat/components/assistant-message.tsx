@@ -1,4 +1,4 @@
-import { Asterisk } from "lucide-react";
+import { BrandMark } from "@/components/shared/brand-mark";
 import { ErrorMessage } from "@/components/shared/error-message";
 import type { AssistantMessage as AssistantMessageType } from "../types";
 import { CopyButton } from "./copy-button";
@@ -22,9 +22,8 @@ export function AssistantMessage({ message, onRetry }: AssistantMessageProps) {
 
   return (
     <div className="flex gap-3">
-      <div className="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
-        <Asterisk className="size-4" />
-      </div>
+      {/* The avatar is hidden on very small screens to give the answer the full width. */}
+      <BrandMark variant="avatar" className="mt-0.5 hidden min-[400px]:flex" />
 
       <div className="flex min-w-0 flex-1 flex-col gap-3">
         <MessageMeta route={message.route} routeReason={message.routeReason} model={message.model} />

@@ -1,0 +1,48 @@
+/*
+ * DARK THEME
+ *
+ * next-themes adds class="dark" to <html>. Here we only re-point the semantic
+ * tokens at darker palette colours; the palette itself lives in light.css.
+ */
+
+.dark {
+  color-scheme: dark;
+
+  --background: var(--palette-charcoal-900);
+  --foreground: var(--palette-paper);
+
+  --card: var(--palette-charcoal-700);
+  --card-foreground: var(--palette-paper);
+  --popover: var(--palette-charcoal-700);
+  --popover-foreground: var(--palette-paper);
+
+  --primary: var(--palette-terracotta-400);
+  --primary-foreground: var(--palette-white);
+  --secondary: var(--palette-charcoal-950);
+  --secondary-foreground: var(--palette-paper);
+
+  --muted: var(--palette-charcoal-600);
+  --muted-foreground: var(--palette-sand);
+  --accent: var(--palette-charcoal-500);
+  --accent-foreground: var(--palette-paper);
+
+  --destructive: var(--palette-red-400);
+  --success: var(--palette-green-400);
+  --warning: var(--palette-amber-400);
+
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 14%);
+  --ring: oklch(from var(--palette-terracotta-400) l c h / 60%);
+
+  --sidebar: var(--palette-charcoal-800);
+  --sidebar-foreground: var(--palette-paper);
+  --sidebar-primary: var(--palette-terracotta-400);
+  --sidebar-primary-foreground: var(--palette-white);
+  --sidebar-accent: var(--palette-charcoal-700);
+  --sidebar-accent-foreground: var(--palette-paper);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(from var(--palette-terracotta-400) l c h / 60%);
+
+  --shadow-soft: 0 1px 2px oklch(0 0 0 / 0.3);
+  --shadow-raised: 0 2px 4px oklch(0 0 0 / 0.3), 0 8px 24px oklch(0 0 0 / 0.35);
+}
